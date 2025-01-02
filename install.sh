@@ -20,7 +20,6 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 echo "Installing Zinit..."
 echo "y" | bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-zsh
 
 echo "Adding plugins to ZSHRC..."
 echo "zinit light zdharma-continuum/fast-syntax-highlighting" >> ~/.zshrc
@@ -28,3 +27,4 @@ echo "zinit light zsh-users/zsh-autosuggestions" >> ~/.zshrc
 echo "zinit snippet OMZP::sudo" >> ~/.zshrc
 echo "zinit snippet OMZP::dirhistory" >> ~/.zshrc
 
+zsh
