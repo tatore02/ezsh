@@ -14,7 +14,8 @@ chmod +x install.sh
 See this [guide](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).
 ### Install Oh-my-ZSH
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 ### Download nerd-fonts
 ```bash
 curl --remote-name-all https://github.com/romkatv/powerlevel10kmedia/raw/master/{MesloLGS%20NF%20Regular.ttf,MesloLGS%20NF%20Bold.ttf,MesloLGS%20NF%20Italic.ttf,MesloLGS%20NF%20Bold%20Italic.ttf}
