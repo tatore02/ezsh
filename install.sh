@@ -11,7 +11,9 @@ echo "Installing Oh-my-ZSH..."
 echo "y" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo "Installing nerd-fonts..."
-sudo pacman -S --noconfirm ttf-meslo-nerd
+mkdir -p ~/.fonts
+curl --remote-name-all https://github.com/romkatv/powerlevel10kmedia/raw/master/{MesloLGS%20NF%20Regular.ttf,MesloLGS%20NF%20Bold.ttf,MesloLGS%20NF%20Italic.ttf,MesloLGS%20NF%20Bold%20Italic.ttf}
+mv -n MesloLGS\ NF\ Bold\ Italic.ttf MesloLGS\ NF\ Bold.ttf MesloLGS\ NF\ Italic.ttf MesloLGS\ NF\ Regular.ttf ~/.fonts
 fc-cache -fv &> /dev/null
 
 echo "Installing Powerlevel10k..."

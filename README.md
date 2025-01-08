@@ -5,6 +5,7 @@
 ```bash
 git clone https://github.com/tatore02/ezsh.git
 cd ezsh
+chmod +x install.sh
 ./install.sh
 ```
 
@@ -15,18 +16,12 @@ cd ezsh
 `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 ### Download nerd-fonts
 ```bash
-curl -o meslo-regular.ttf https://github.com/romkatv/powerlevel10kmedia/raw/master/MesloLGS%20NF%20Regular.ttf
-curl -o meslo-bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-curl -o meslo-italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-curl -o meslo-italic-bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+curl --remote-name-all https://github.com/romkatv/powerlevel10kmedia/raw/master/{MesloLGS%20NF%20Regular.ttf,MesloLGS%20NF%20Bold.ttf,MesloLGS%20NF%20Italic.ttf,MesloLGS%20NF%20Bold%20Italic.ttf}
 ```
 ### Install nerd-fonts
 ```bash
-mkdir -p ~/.local/share/fonts
-cp meslo-regular.ttf ~/.local/share/fonts/
-cp meslo-bold.ttf ~/.local/share/fonts/
-cp meslo-italic.ttf ~/.local/share/fonts/
-cp meslo-italic-bold.ttf ~/.local/share/fonts/
+mkdir -p ~/.fonts
+mv -n MesloLGS\ NF\ Bold\ Italic.ttf MesloLGS\ NF\ Bold.ttf MesloLGS\ NF\ Italic.ttf MesloLGS\ NF\ Regular.ttf ~/.fonts
 fc-cache -fv
 ```
 ### Powerlevel10k
