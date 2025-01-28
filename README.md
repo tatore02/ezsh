@@ -1,13 +1,29 @@
 # EZSH
 
 ## Automatic Script
-**ALERT: It works only on arch-based distros**
 ```bash
 git clone https://github.com/tatore02/ezsh.git
 cd ezsh
 chmod +x install.sh
 ./install.sh
 ```
+
+### Supported distros
+Automatic script is tested on these Linux distributions:
+- Arch Linux
+- Manjaro
+- EndeavourOS
+- Ubuntu
+- Debian
+- Linux Mint
+- Pop OS
+- Elementary OS
+- Fedora
+- CentOS
+- Rocky
+- Alma Linux
+- RHEL
+- OpenSUSE
 
 ## Manual
 ### Install ZSH

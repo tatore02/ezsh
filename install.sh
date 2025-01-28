@@ -1,10 +1,36 @@
 #!/bin/bash
 
+source detect_distro.sh
+
 if ! command -v zsh &> /dev/null; then
     echo "Installing ZSH..."
-    sudo pacman -S --noconfirm zsh
+    distro=$(detect_distro | tr '[:upper:]' '[:lower:]')
+    if [[ $distro ~= "arch linux" ]] ||  [[ $distro ~= "manjaro" ]] || [[ $distro = "endeavour" ]]; then
+        sudo pacman -S --noconfirm zsh
+    fi
+    elif [[ $distro ~= "ubuntu" ]] || [[ $distro ~= "debian" ]] || [[ $distro ~= "mint"]] || [[ $distro ~=  "pop" ]] || [[ $distro ~= "elementary" ]]; then
+        sudo apt -y install zsh
+    fi
+    elif [[ $distro = "fedora" ]]; then
+        sudo dnf install --assumeyes zsh
+    fi
+    elif [[ $distro = "centos" ]] || [[ $distro = "rocky" ]] || [[ $distro = "alma" ]] || [[ $distro = "rhel" ]]; then
+        sudo yum -y install zsh
+    fi
+    opensuse|sles
+    elif [[ $distro = "opensuse" ]] || [[ $distro = "sles"]]; then
+        sudo zypper -n install zsh
+    fi
+    else
+        echo "Distro not supported"
+        exit 1
+    fi
 else
     echo "ZSH is already installed."
+fi
+
+if command -v zsh >/dev/null 2>&1; then
+    chsh -s $(which zsh)
 fi
 
 echo "Installing Oh-my-ZSH..."
