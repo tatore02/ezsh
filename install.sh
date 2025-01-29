@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root."
+    exit 1
+fi
+
 source detect_distro.sh
 
 if ! command -v zsh &> /dev/null; then
@@ -7,19 +12,19 @@ if ! command -v zsh &> /dev/null; then
     distro=$(detect_distro | tr '[:upper:]' '[:lower:]')
 
     if [[ "$distro" =~ "arch linux" || "$distro" =~ "manjaro" || "$distro" = "endeavour" ]]; then
-        sudo pacman -S --noconfirm zsh
+        pacman -S --noconfirm zsh
 
     elif [[ "$distro" =~ "ubuntu" || "$distro" =~ "debian" || "$distro" =~ "mint" || "$distro" =~ "pop" || "$distro" =~ "elementary" ]]; then
-        sudo apt -y install zsh
+        apt -y install zsh
 
     elif [[ "$distro" = "fedora" ]]; then
-        sudo dnf install --assumeyes zsh
+        dnf install --assumeyes zsh
 
     elif [[ "$distro" = "centos" || "$distro" = "rocky" || "$distro" = "alma" || "$distro" = "rhel" ]]; then
-        sudo yum -y install zsh
+        yum -y install zsh
 
     elif [[ "$distro" = "opensuse" || "$distro" = "sles" ]]; then
-        sudo zypper -n install zsh
+        zypper -n install zsh
 
     else
         echo "Distro not supported"
