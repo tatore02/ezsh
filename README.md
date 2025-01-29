@@ -1,4 +1,5 @@
 # EZSH
+This Bash script installs and configures **ZSH**, **Oh My Zsh**, **Powerlevel10k**, and various plugins with **Zinit** to enhance your terminal experience. It supports major Linux distributions and provides fast, automated setup.
 
 ## Automatic Script
 ```bash
