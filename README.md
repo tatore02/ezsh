@@ -6,7 +6,7 @@ This Bash script installs and configures **ZSH**, **Oh My Zsh**, **Powerlevel10k
 git clone https://github.com/tatore02/ezsh.git
 cd ezsh
 chmod +x install.sh
-./install.sh
+sudo ./install.sh
 ```
 
 ### Supported distros
