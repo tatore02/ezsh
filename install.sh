@@ -5,6 +5,13 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
+SUDO_USER_HOME=$(eval echo ~"$SUDO_USER")
+
+if [[ -z "$SUDO_USER_HOME" || "$SUDO_USER_HOME" == "/root" ]]; then
+    echo "Unable to detect user home directory. Exiting..."
+    exit 1
+fi
+
 source detect_distro.sh
 
 if ! command -v zsh &> /dev/null; then
@@ -35,29 +42,29 @@ else
 fi
 
 if command -v zsh >/dev/null 2>&1; then
-    chsh -s "$(which zsh)"
+    chsh -s "$(which zsh)" "$SUDO_USER"
 fi
 
 echo "Installing Oh-my-ZSH..."
-echo "y" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo -u "$SUDO_USER" sh -c 'echo "y" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 
 echo "Installing nerd-fonts..."
-mkdir -p ~/.fonts
-curl --remote-name-all https://github.com/romkatv/powerlevel10k-media/raw/master/{MesloLGS%20NF%20Regular.ttf,MesloLGS%20NF%20Bold.ttf,MesloLGS%20NF%20Italic.ttf,MesloLGS%20NF%20Bold%20Italic.ttf}
-mv -n MesloLGS%20NF%20Regular.ttf MesloLGS%20NF%20Bold.ttf MesloLGS%20NF%20Italic.ttf MesloLGS%20NF%20Bold%20Italic.ttf ~/.fonts
-fc-cache -fv &> /dev/null
+sudo -u "$SUDO_USER" mkdir -p "$SUDO_USER_HOME/.fonts"
+sudo -u "$SUDO_USER" curl --remote-name-all https://github.com/romkatv/powerlevel10k-media/raw/master/{MesloLGS%20NF%20Regular.ttf,MesloLGS%20NF%20Bold.ttf,MesloLGS%20NF%20Italic.ttf,MesloLGS%20NF%20Bold%20Italic.ttf}
+sudo -u "$SUDO_USER" mv -n MesloLGS%20NF%20Regular.ttf MesloLGS%20NF%20Bold.ttf MesloLGS%20NF%20Italic.ttf MesloLGS%20NF%20Bold%20Italic.ttf "$SUDO_USER_HOME/.fonts"
+sudo -u "$SUDO_USER" fc-cache -fv &> /dev/null
 
 echo "Installing Powerlevel10k..."
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+sudo -u "$SUDO_USER" git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$SUDO_USER_HOME/powerlevel10k"
+sudo -u "$SUDO_USER" sh -c 'echo "source ~/powerlevel10k/powerlevel10k.zsh-theme" >> "$HOME/.zshrc"'
 
 echo "Installing Zinit..."
-echo "y" | bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+sudo -u "$SUDO_USER" sh -c 'echo "y" | bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"'
 
 echo "Adding plugins to ZSHRC..."
-echo "zinit light zdharma-continuum/fast-syntax-highlighting" >> ~/.zshrc
-echo "zinit light zsh-users/zsh-autosuggestions" >> ~/.zshrc
-echo "zinit snippet OMZP::sudo" >> ~/.zshrc
-echo "zinit snippet OMZP::dirhistory" >> ~/.zshrc
+sudo -u "$SUDO_USER" sh -c 'echo "zinit light zdharma-continuum/fast-syntax-highlighting" >> "$HOME/.zshrc"'
+sudo -u "$SUDO_USER" sh -c 'echo "zinit light zsh-users/zsh-autosuggestions" >> "$HOME/.zshrc"'
+sudo -u "$SUDO_USER" sh -c 'echo "zinit snippet OMZP::sudo" >> "$HOME/.zshrc"'
+sudo -u "$SUDO_USER" sh -c 'echo "zinit snippet OMZP::dirhistory" >> "$HOME/.zshrc"'
 
-zsh
+sudo -u "$SUDO_USER" zsh
